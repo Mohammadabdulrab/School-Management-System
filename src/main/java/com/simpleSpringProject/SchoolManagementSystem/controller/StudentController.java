@@ -78,6 +78,27 @@ public class StudentController {
         }
         return studentList;
     }
+        @DeleteMapping("/delete/{studentid}")
+        public String deleteStudentById(@PathVariable("studentid") int studentID){
+            studentDB.remove(studentID);
+            return "Student with id "+studentID+" got deleted";
+        }
+
+         @PutMapping("/update/{studentid}")
+        public String updateStudent(@PathVariable("studentid") int studentID, @RequestBody Student studentRequest){
+              // find student details with id
+             // if student is present update the student detail
+            //else not update
+             Student student= studentDB.get(studentID);
+             if(student !=null){
+                 studentDB.put(studentID, studentRequest);
+                 return " Student detail is updated";
+             }
+             else{
+                 return "Student not found we can not update student details";
+             }
+
+        }
 
 
     }
